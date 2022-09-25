@@ -1,0 +1,4 @@
+﻿  mathdemo2.cpp
+C:\lab2\ArchitectureLogicielsLab2\math_demo_2\mathdemo2.cpp(10,15): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+     Création de la bibliothèque C:\lab2\ArchitectureLogicielsLab2\x64\Debug\mathdemo2.lib et de l'objet C:\lab2\ArchitectureLogicielsLab2\x64\Debug\mathdemo2.exp
+  math_demo_2.vcxproj -> C:\lab2\ArchitectureLogicielsLab2\x64\Debug\mathdemo2.pyd
