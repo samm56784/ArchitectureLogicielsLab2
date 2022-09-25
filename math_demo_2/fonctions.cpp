@@ -9,7 +9,7 @@ void ToucheEntrée(HRESULT hr, IGraphBuilder* pGraph, IMediaControl* pControl, IM
     FILTER_STATE state;
     long evCode;
     hr = pSeeking->GetPositions(NULL, &rtEnd);
-    while (lettre != 'Q')
+    while (1)
     {
         lettre = _getch();
         lettre = toupper(lettre);
@@ -43,6 +43,7 @@ void ToucheEntrée(HRESULT hr, IGraphBuilder* pGraph, IMediaControl* pControl, IM
             pEvent->Release();
             pGraph->Release();
             CoUninitialize();
+            return;
             break;
         default:
             cout << "Caractere invalide !\n";

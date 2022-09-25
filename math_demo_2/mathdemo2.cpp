@@ -1,25 +1,6 @@
 #include <Python.h>
 #include "fonctions.h"
 using namespace std;
-
-static PyObject* random(PyObject* self, PyObject* args)
-
-{
-
-    /* initialize random seed: */
-
-    srand(time(NULL));
-
-    int random = rand() % 10;
-
-    PyObject* python_val = Py_BuildValue("i", random);
-
-    return python_val;
-
-}
-
-
-
 static PyObject* start(PyObject* self, PyObject* args)
 {
 
@@ -58,7 +39,13 @@ static PyObject* start(PyObject* self, PyObject* args)
         {
             //cas video marche et est en cours de lecture
             ToucheEntrée(hr, pGraph, pControl, pEvent, pSeeking);//passer en entrée hr 
+            pControl->Release();
+            pEvent->Release();
+            pGraph->Release();
+            CoUninitialize();
+            return 0L;
         }
+        return NULL;
     }
     else
     {
@@ -67,51 +54,15 @@ static PyObject* start(PyObject* self, PyObject* args)
         pEvent->Release();
         pGraph->Release();
         CoUninitialize();
+        return NULL;
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-static PyObject* add(PyObject* self, PyObject* args)
-
-{
-
-    int x = 0, y = 0, s = 0;
-
-    PyArg_ParseTuple(args, "ii", &x, &y);
-
-    s = x + y;
-
-    PyObject* python_val = Py_BuildValue("i", s);
-
-    return python_val;
-
+    return NULL;
 }
 
 static PyMethodDef methods[] = {
 
-    { "random", random, METH_NOARGS,
-
-    "Generate random number betweeen 0-9" },
-
-    {"add",add,METH_VARARGS,"Adds two integers"},
-    {"start",start,METH_NOARGS,"start"},
-
+    {"start",start,METH_VARARGS,"start"},
     { NULL, NULL, 0, NULL }
-
 };
 
 static struct PyModuleDef mathdemo2 =
