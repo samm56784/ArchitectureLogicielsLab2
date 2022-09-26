@@ -3,7 +3,8 @@
 using namespace std;
 static PyObject* start(PyObject* self, PyObject* args)
 {
-
+    string Message;
+    PyObject* val = 0;
     IGraphBuilder* pGraph = NULL;
     IMediaControl* pControl = NULL;
     IMediaEvent* pEvent = NULL;
@@ -30,7 +31,7 @@ static PyObject* start(PyObject* self, PyObject* args)
     hr = pGraph->QueryInterface(IID_IMediaSeeking, (void**)&pSeeking);
     // Build the graph. IMPORTANT: Change this string to a file on your system.
 
-    hr = pGraph->RenderFile(L"C:\\Example.avi", NULL);
+    hr = pGraph->RenderFile(L"C:\\Example.avi", NULL);//args-> C:\\Example.avi
     if (SUCCEEDED(hr))
     {
         // Run the graph.
@@ -42,8 +43,13 @@ static PyObject* start(PyObject* self, PyObject* args)
             pControl->Release();
             pEvent->Release();
             pGraph->Release();
+            pSeeking->Release();
             CoUninitialize();
-            return 0L;
+            Message = "Methode bien fermee!";
+            const char* buf = Message.c_str();
+            val = PyBytes_FromString(buf);
+            return val;
+            
         }
         return NULL;
     }
@@ -56,7 +62,7 @@ static PyObject* start(PyObject* self, PyObject* args)
         CoUninitialize();
         return NULL;
     }
-    return NULL;
+   // return NULL;
 }
 
 static PyMethodDef methods[] = {
