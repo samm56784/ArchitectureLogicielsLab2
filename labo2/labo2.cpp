@@ -43,11 +43,13 @@ static PyObject* start(PyObject* self, PyObject* args)
             pControl->Release();
             pEvent->Release();
             pGraph->Release();
+            pSeeking->Release();
             CoUninitialize();
             Message = "Methode bien fermee!";
             const char* buf = Message.c_str();
             val = PyBytes_FromString(buf);
             return val;
+            
         }
         return NULL;
     }
