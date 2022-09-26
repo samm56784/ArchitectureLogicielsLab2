@@ -3,6 +3,12 @@
 using namespace std;
 static PyObject* start(PyObject* self, PyObject* args)
 {
+    const char* buffer;
+    PyArg_Parse(args,"s", & buffer);
+    string buffpath = buffer;
+    wstring temp(buffpath.begin(),buffpath.end());
+    LPCWSTR path = temp.c_str();
+    //wstring path(buffer);
     string Message;
     PyObject* val = 0;
     IGraphBuilder* pGraph = NULL;
@@ -31,7 +37,8 @@ static PyObject* start(PyObject* self, PyObject* args)
     hr = pGraph->QueryInterface(IID_IMediaSeeking, (void**)&pSeeking);
     // Build the graph. IMPORTANT: Change this string to a file on your system.
 
-    hr = pGraph->RenderFile(L"C:\\Example.avi", NULL);//args-> C:\\Example.avi
+   // hr = pGraph->RenderFile(L"C:\\Example.avi", NULL);//args-> C:\\Example.avi
+    hr = pGraph->RenderFile(path, NULL);//args-> C:\\Example.avi
     if (SUCCEEDED(hr))
     {
         // Run the graph.
