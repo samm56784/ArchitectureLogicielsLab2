@@ -1,8 +1,15 @@
 #include <Python.h>
 #include "fonctions.h"
+#include <filesystem>
 using namespace std;
 static PyObject* start(PyObject* self, PyObject* args)
 {
+    const char* buffer;
+    PyArg_ParseTuple(args,"s", &buffer);
+    string buffpath = buffer;
+    wstring temp(buffpath.begin(), buffpath.end());
+   wstring autre = temp;
+   LPCWSTR path = autre.c_str();
     string Message;
     PyObject* val = 0;
     IGraphBuilder* pGraph = NULL;
@@ -31,7 +38,8 @@ static PyObject* start(PyObject* self, PyObject* args)
     hr = pGraph->QueryInterface(IID_IMediaSeeking, (void**)&pSeeking);
     // Build the graph. IMPORTANT: Change this string to a file on your system.
 
-    hr = pGraph->RenderFile(L"C:\\Example.avi", NULL);//args-> C:\\Example.avi
+    //hr = pGraph->RenderFile(L"C:\\Example.avi", NULL);//args-> C:\\Example.avi
+    hr = pGraph->RenderFile(path, NULL);//args-> C:\\Example.avi
     if (SUCCEEDED(hr))
     {
         // Run the graph.
@@ -45,7 +53,7 @@ static PyObject* start(PyObject* self, PyObject* args)
             pGraph->Release();
             pSeeking->Release();
             CoUninitialize();
-            Message = "Methode bien fermee!";
+            Message = "Methode bien fermee!"; 
             const char* buf = Message.c_str();
             val = PyBytes_FromString(buf);
             return val;
