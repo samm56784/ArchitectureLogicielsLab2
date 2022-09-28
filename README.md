@@ -23,11 +23,17 @@ et ajouter également dans les répertoires de bibliothèques, l'emplacement de 
 9. Nettoyer, compiler et générer votre solution par la suite
 
 10. Ouvrir la console Python et inscrire les instructions suivants les >>> :
+
 (>>>) import sys
+
 Pour la ligne suivante, il faut mettre le chemin du projet entre les guillemets où se trouve votre application Python en utilisant des frontslashs entre les fichiers
+
 (>>>) sys.path.append("C:/labo2/x64/Release")
+
 (>>>) import labo2
+
 Pour la ligne suivante, il faut mettre le chemin de l'étape 1 entre les guillemets
+
 (>>>) labo2.start("C:/Example.avi")
 
 11. Votre vidéo téléchargée à l'étape 1 partira et vous pourrai inscrire les commandes voulues dans la console Python pour jouer avec votre vidéo
