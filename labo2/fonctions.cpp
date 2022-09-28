@@ -1,5 +1,4 @@
 #pragma once
-#include <conio.h>
 #include "fonctions.h"
 
 void ToucheEntrée(HRESULT hr, IGraphBuilder* pGraph, IMediaControl* pControl, IMediaEvent* pEvent, IMediaSeeking* pSeeking)
@@ -39,11 +38,6 @@ void ToucheEntrée(HRESULT hr, IGraphBuilder* pGraph, IMediaControl* pControl, IM
             cout << "R - Retour au debut\n";
             break;
         case 'Q':
-           // pControl->Release();
-           // pEvent->Release();
-           // pGraph->Release();
-            //CoUninitialize();
-            //return;
             break;
         default:
             cout << "Caractere invalide !\n";
