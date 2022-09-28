@@ -37,3 +37,4 @@ P – Play ou Pause
 A – Avance accélérée (1.25x)
 R – Retour au début
 Q - Quitter
+
