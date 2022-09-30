@@ -41,7 +41,10 @@ static PyObject* start(PyObject* self, PyObject* args)
     if (FAILED(hr))
     {
         printf("ERROR - Could not create the Filter Graph Manager.");
-        return NULL;
+        Message = "Probleme de creation de l'instance direct show";
+        const char* buf3 = Message.c_str();
+        val = PyBytes_FromString(buf3);
+        return val;
     }
 
     hr = pGraph->QueryInterface(IID_IMediaControl, (void**)&pControl);
@@ -63,22 +66,30 @@ static PyObject* start(PyObject* self, PyObject* args)
             pGraph->Release();
             pSeeking->Release();
             CoUninitialize();
+            cout << "Methode bien fermee!" << endl;
             Message = "Methode bien fermee!"; 
             const char* buf = Message.c_str();
             val = PyBytes_FromString(buf);
             return val;
         }
-        return NULL;
+        cout << "Probleme de lecture..." << endl;
+        Message = "Probleme de lecture...";
+        const char* buf2 = Message.c_str();
+        val = PyBytes_FromString(buf2);
+        return val;
     }
     else
     {
-        cout << "Erreur d'ouverture du fichier video..." << endl;
+        cout << "Probleme d'ouverture du fichier video..." << endl;
         pControl->Release();
         pEvent->Release();
         pGraph->Release();
         pSeeking->Release();
         CoUninitialize();
-        return NULL;
+        Message = "Probleme d'ouverture du fichier video...";
+        const char* buf3 = Message.c_str();
+        val = PyBytes_FromString(buf3);
+        return val;
     }
 }
 

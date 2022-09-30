@@ -1,4 +1,7 @@
 import sys
-sys.path.append("C:/Users/sharvey27/Desktop/lab2/ArchitectureLogicielsLab2/x64/Release")
+sys.path.append("C:/Users/PC/Desktop/Labo2/ArchitectureLogicielsLab2/x64/Release")#Changer le path vers le path de votre labo2.py
 import labo2
-labo2.start("C:\\Users\\sharvey27\\Downloads\\Example.avi")
+print('path:')
+path = input();
+labo2.start(path)
+

@@ -1,5 +1,5 @@
 ﻿  fonctions.cpp
-C:\Users\samue\Desktop\lab2\ArchitectureLogicielsLab2\labo2\fonctions.cpp(10,10): warning C4101: 'evCode' : variable locale non référencée
+C:\Users\PC\Desktop\Labo2\ArchitectureLogicielsLab2\labo2\fonctions.h(5,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'Python.h' : No such file or directory
   labo2.cpp
-C:\Users\samue\Desktop\lab2\ArchitectureLogicielsLab2\labo2\labo2.cpp(1,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'Python.h' : No such file or directory
+C:\Users\PC\Desktop\Labo2\ArchitectureLogicielsLab2\labo2\fonctions.h(5,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'Python.h' : No such file or directory
   Génération de code en cours...
