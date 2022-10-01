@@ -1,9 +1,10 @@
 # ArchitectureLogicielsLab2
 Lab2
-INSTRUCTIONS À SUIVRE
-***À noter que le projet a été développé pour Python 3.10 à la base, les autres versions n'ont pas été testées, mais le tout devrait fonctionner tout de même si la version est assez récente.
+INSTRUCTIONS À SUIVRE 
 
-1. Téléchargez la vidéo voulue sur votre ordinateur et noter l'emplacement de celle-ci avec son nom et son extension (ex-> C:/Example.avi)
+***À noter que le projet a été développé pour Python 3.10 à la base, les autres versions n'ont pas été testées, mais le tout devrait fonctionner tout de même si la version est assez récente (Python 3.X).
+
+1. Téléchargez la vidéo voulue sur votre ordinateur et noter l'emplacement de celle-ci avec son nom et son extension (ex-> C:\Example.avi)
 
 2. Installer la version la plus récente de Python sur votre ordinateur en retenant son emplacement dans les fichiers
 
@@ -17,30 +18,19 @@ INSTRUCTIONS À SUIVRE
 
 7. Toujours dans les propriétés, dans les paramètres avancés, mettre l'entension du fichier cible en .pyd
 
-8. Encore dans les propriétés, dans les répertoires VC++, ajouter dans les répertoires Include, l'emplacement de sauvegarde de la bibliothèque include de Python (ex-> C:/Python310/include) 
-et ajouter également dans les répertoires de bibliothèques, l'emplacement de sauvegarde de la bibliothèque de Python (ex-> C:/Python310/libs)
+8. Encore dans les propriétés, dans les répertoires VC++, ajouter dans les répertoires Include, l'emplacement de sauvegarde de la bibliothèque include de Python (ex-> C:/Python310/include) et ajouter également dans les répertoires de bibliothèques, l'emplacement de sauvegarde de la bibliothèque de Python (ex-> C:/Python310/libs)
 
-9. Nettoyer, compiler et générer votre solution par la suite
+9. Nettoyer, compiler et générer votre solution par la suite dans le mode Release X64
 
-10. Ouvrir la console Python et inscrire les instructions suivants les >>> :
+10. Ajuster le script "exec.py" présent dans le dossier afin que celui-ci ait le bon path de votre module .py -> ex: "C:/Users/PC/Desktop/Labo2/ArchitectureLogicielsLab2/x64/Release" (il est important de mettre le path entre "")
 
-(>>>) import sys
+11. Ouvrir l'invite de commande (ou Powershell) et aller chercher le path du projet grâce à la commande "cd", vous devriez être à un emplacement ressamblant à : C:\Users\PC\Desktop\Labo2\ArchitectureLogicielsLab2\labo2>
 
-Pour la ligne suivante, il faut mettre le chemin du projet entre les guillemets où se trouve votre application Python en utilisant des frontslashs entre les fichiers
+12. Lorsque vous serez dans le fichier de votre labo, inscrivez: py exec .py path
 
-(>>>) sys.path.append("C:/labo2/x64/Release")
+13.Vous serez alors invité à entrer le path de la vidéo à lancer, en utilisant le format suivant -> C:\\Example.avi  (ne pas entrer de "")
 
-(>>>) import labo2
+14. Votre vidéo téléchargée à l'étape 1 partira et vous pourrez inscrire les commandes voulues dans l'invite de comande ( ou Powershell) pour pouvoir contrôler votre vidéo
 
-Pour la ligne suivante, il faut mettre le chemin de l'étape 1 entre les guillemets
-
-(>>>) labo2.start("C:/Example.avi")
-
-11. Votre vidéo téléchargée à l'étape 1 partira et vous pourrai inscrire les commandes voulues dans la console Python pour jouer avec votre vidéo
-
-12. Voici les instructions des touches 
-P – Play ou Pause
-A – Avance accélérée (1.25x)
-R – Retour au début
-Q - Quitter
+15. Voici les instructions des touches P – Play ou Pause A – Avance accélérée (1.25x) R – Retour au début Q - Quitter
 
