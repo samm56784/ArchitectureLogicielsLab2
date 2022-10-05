@@ -1,13 +1,14 @@
 #pragma once
 #include "fonctions.h"
 
-void ToucheEntrée(HRESULT hr, IGraphBuilder* pGraph, IMediaControl* pControl, IMediaEvent* pEvent, IMediaSeeking* pSeeking)
+void ToucheEntrée(Lecture &Lec)
 {
     REFERENCE_TIME rtNow = 0, rtEnd;
     char lettre = 'Z';
-    FILTER_STATE state;
+    //FILTER_STATE state;
+    state etat = INITIAL;
     long evCode;
-    hr = pSeeking->GetPositions(NULL, &rtEnd);
+    Lec.hr = Lec.pSeeking->GetPositions(NULL, &rtEnd);
     while (lettre!='Q')
     {
         lettre = _getch();
@@ -15,29 +16,25 @@ void ToucheEntrée(HRESULT hr, IGraphBuilder* pGraph, IMediaControl* pControl, IM
         switch (lettre)
         {
         case 'A':
-            hr = pSeeking->SetRate(1.25);
-            cout << "A - Avance rapide (1,25x)\n";
+            Lec.fastforward();
             break;
         case 'P':
-            hr = pControl->GetState(0, (OAFilterState*)&state);
-            if (state == State_Paused)
+           // hr = pControl->GetState(0, (OAFilterState*)&state);
+            if (etat == PAUSED)
             {
-                hr = pControl->Run();
-                cout << "P - Play\n";
+                Lec.play();
             }
             else
             {
-                hr = pControl->Pause();
-                cout << "P - Pause\n";
+                Lec.pause();
             }
             break;
+
         case 'R':
-            hr = pSeeking->SetRate(1.0);
-            hr = pSeeking->SetPositions(&rtNow, AM_SEEKING_AbsolutePositioning, &rtEnd, AM_SEEKING_AbsolutePositioning);
-            hr = pControl->Run();
-            cout << "R - Retour au debut\n";
+            Lec.rewind();
             break;
         case 'Q':
+            Lec.quit();
             break;
         default:
             cout << "Caractere invalide !\n";

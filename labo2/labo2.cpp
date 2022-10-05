@@ -1,6 +1,6 @@
 ///////
 // Auteurs: Samuel Harvey et Simon Dumas
-// Date: 6 octobre 2022
+// Date: 5 octobre 2022
 // 
 // Description: Module python servant à exécuter un programme écrit en c++ servant à effectuer la lecture d'un fichier vidéo. Le programme c++ inclut aussi les fonctionnalités de play/pause (P), avance rapide (A), retour au début (R) et quitter pour fermer l'application (Q).
 // Le module python prend en entrée le path d'une vidéo et la lit avec les fonctionnalités de contrôle présentes dans le programme initial écrit en c++.
@@ -11,87 +11,51 @@
 //exécuté dans un module python avec en entrée le path de la vidéo à jouer.
 #include "fonctions.h"
 
-
 static PyObject* start(PyObject* self, PyObject* args)
 {
     const char* buffer;
-    PyArg_ParseTuple(args,"s", &buffer);
+    PyArg_ParseTuple(args, "s", &buffer);
     string buffpath = buffer;
     wstring temp(buffpath.begin(), buffpath.end());
     wstring autre = temp;
-    LPCWSTR path = autre.c_str();
-    string Message;
-    PyObject* val;
-    IGraphBuilder* pGraph = NULL;
-    IMediaControl* pControl = NULL;
-    IMediaEvent* pEvent = NULL;
-    IMediaSeeking* pSeeking = NULL;
-
-    // Initialize the COM library.
-    HRESULT hr = CoInitialize(NULL);
-    if (FAILED(hr))
-    {
-        printf("ERROR - Could not initialize COM library");
-        return NULL;
-    }
-
-    // Create the filter graph manager and query for interfaces.
-    hr = CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER,
-        IID_IGraphBuilder, (void**)&pGraph);
-    if (FAILED(hr))
-    {
-        printf("ERROR - Could not create the Filter Graph Manager.");
-        Message = "Probleme de creation de l'instance direct show";
-        const char* buf3 = Message.c_str();
-        val = PyBytes_FromString(buf3);
-        return val;
-    }
-
-    hr = pGraph->QueryInterface(IID_IMediaControl, (void**)&pControl);
-    hr = pGraph->QueryInterface(IID_IMediaEvent, (void**)&pEvent);
-    hr = pGraph->QueryInterface(IID_IMediaSeeking, (void**)&pSeeking);
-
-    // Build the graph, path étant le path complet de la vidéo que l'on a reçue en entrée du module start()-> ex: labo2.start("C:\\Example.avi")
-    hr = pGraph->RenderFile(path, NULL);
-    if (SUCCEEDED(hr))
+    LPCWSTR path = autre.c_str();;
+    Lecture Lec;
+    PyObject* valeur;
+    valeur = Lec.start(self,args);
+    Lec.hr = Lec.pGraph->RenderFile(path, NULL);
+    if (SUCCEEDED(Lec.hr))
     {
         // Run the graph.
-        hr = pControl->Run();
-        if (SUCCEEDED(hr))
+        Lec.hr = Lec.pControl->Run();
+        if (SUCCEEDED(Lec.hr))
         {
+            Lec.setEndTime();
             //cas video marche et est en cours de lecture
-            ToucheEntrée(hr, pGraph, pControl, pEvent, pSeeking);//passer en entrée hr 
-            pControl->Release();
-            pEvent->Release();
-            pGraph->Release();
-            pSeeking->Release();
-            CoUninitialize();
+            ToucheEntrée(Lec);//passer en entrée hr 
             cout << "Methode bien fermee!" << endl;
-            Message = "Methode bien fermee!"; 
-            const char* buf = Message.c_str();
-            val = PyBytes_FromString(buf);
-            return val;
+            Lec.Message = "Methode bien fermee!";
+            const char* buf = Lec.Message.c_str();
+            valeur = PyBytes_FromString(buf);
+            return valeur;
         }
         cout << "Probleme de lecture..." << endl;
-        Message = "Probleme de lecture...";
-        const char* buf2 = Message.c_str();
-        val = PyBytes_FromString(buf2);
-        return val;
+        Lec.Message = "Probleme de lecture...";
+        const char* buf2 = Lec.Message.c_str();
+        valeur = PyBytes_FromString(buf2);
+        return valeur;
     }
     else
     {
         cout << "Probleme d'ouverture du fichier video..." << endl;
-        pControl->Release();
-        pEvent->Release();
-        pGraph->Release();
-        pSeeking->Release();
-        CoUninitialize();
-        Message = "Probleme d'ouverture du fichier video...";
-        const char* buf3 = Message.c_str();
-        val = PyBytes_FromString(buf3);
-        return val;
+        Lec.Message = "Probleme d'ouverture du fichier video...";
+        const char* buf3 = Lec.Message.c_str();
+        valeur = PyBytes_FromString(buf3);
+        Lec.~Lecture();
+        return valeur;
     }
 }
+
+
 
 static PyMethodDef methods[] = {
 
