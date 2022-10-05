@@ -6,7 +6,6 @@ void ToucheEntrée(Lecture &Lec)
     REFERENCE_TIME rtNow = 0, rtEnd;
     char lettre = 'Z';
     //FILTER_STATE state;
-    state etat = INITIAL;
     long evCode;
     Lec.hr = Lec.pSeeking->GetPositions(NULL, &rtEnd);
     while (lettre!='Q')
@@ -20,7 +19,7 @@ void ToucheEntrée(Lecture &Lec)
             break;
         case 'P':
            // hr = pControl->GetState(0, (OAFilterState*)&state);
-            if (etat == PAUSED)
+            if (Lec.État == PAUSED)
             {
                 Lec.play();
             }
